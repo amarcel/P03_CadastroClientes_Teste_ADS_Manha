@@ -1,11 +1,13 @@
 
 package edu.unama.entidades;
 
+import br.com.caelum.stella.validation.CPFValidator;
 import br.unama.bd.SQLite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import org.apache.commons.validator.routines.EmailValidator;
 
 public class Cliente {
     private int codigo;
@@ -89,17 +91,48 @@ public class Cliente {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpf(String cpf) throws Exception {
+        if (validarCpf(cpf)==true){
+            this.cpf = cpf;
+        }else{
+            throw new Exception("CPF inválido"); 
+        }
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws Exception {
+       if (emailValidator(email)==true){
         this.email = email;
+       }else{
+        throw new Exception("Email inválido");   
+       }
     }
     
+    public boolean emailValidator(String email){
+        return EmailValidator.getInstance().isValid(email);
+    }
+    
+    public boolean validarCpf(String cpf){
+        CPFValidator cpfValidator = new CPFValidator(); 
+        try{ cpfValidator.assertValid(cpf); 
+            return true; 
+        }catch(Exception e){ 
+            return false; 
+        } 
+    }
+    
+   public boolean validarNome(String nome){
+       String nomeV = nome;
+       if(nomeV.length() < 5){ 
+          return false; 
+       }else{
+           return true;
+       }
+       
+    }
+   
     
 }
