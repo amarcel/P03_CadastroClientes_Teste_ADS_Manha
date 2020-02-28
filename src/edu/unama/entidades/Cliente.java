@@ -1,4 +1,3 @@
-
 package edu.unama.entidades;
 
 import br.unama.bd.SQLite;
@@ -6,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Cliente {
     private int codigo;
@@ -101,5 +102,29 @@ public class Cliente {
         this.email = email;
     }
     
+    public boolean validarEmail(String email){
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+    
+    public String validarCpf(String cpf){
+        String validador = cpf;
+        if(validador.length() < 11){
+             return "cpf invalido";
+         }else{
+            return "cpf valido";
+         }
+        
+    }
+    
+    public String validarNome(String nome){
+         String validador = nome;
+         if(validador.length() < 5){
+             return "falso";
+         }else{
+             return "verdadeiro";
+         }
+    }
     
 }

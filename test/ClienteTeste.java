@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import edu.unama.entidades.Cliente;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,19 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author marcel
- */
 public class ClienteTeste {
+    Cliente c;
     
     public ClienteTeste() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
+        c = new Cliente();
+    } 
+        
     @AfterClass
     public static void tearDownClass() {
     }
@@ -36,9 +27,24 @@ public class ClienteTeste {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void informarEmailValido() {
+       boolean respostaF = c.validarEmail("sememail.com");
+        assertEquals(false, respostaF);
+        
+        boolean respostaV = c.validarEmail("sem@email.com");
+        assertEquals(true, respostaV);
+    }
+    
+    @Test 
+    public void informarCpfValido(){
+        String resultado = c.validarCpf("11122233344");
+        assertEquals("cpf valido", resultado);
+    }
+    
+    @Test
+    public void informarNomeValido(){
+        String resultado = c.validarNome("matheus");
+        assertEquals("verdadeiro", resultado);
+    }
 }
